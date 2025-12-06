@@ -1,5 +1,7 @@
 # Python Project Template
 
+[![CI](https://github.com/sesopenko/python-template/actions/workflows/ci.yml/badge.svg)](https://github.com/sesopenko/python-template/actions/workflows/ci.yml)
+
 A minimal, best-practice template for Python projects with tooling for
 formatting, linting, testing, type-checking, and dependency management.
 

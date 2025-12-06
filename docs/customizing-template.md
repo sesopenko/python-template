@@ -234,3 +234,59 @@ invoke test
 ```
 
 You now have a customized project based on this template, with your own package name and license.
+
+## 9. Update the CI build badge in `README.md`
+
+The template’s `README.md` includes a GitHub Actions build badge at the very top:
+
+```markdown
+[![CI](https://github.com/sesopenko/python-template/actions/workflows/ci.yml/badge.svg)](https://github.com/sesopenko/python-template/actions/workflows/ci.yml)
+```
+
+When you create your own repository, you should update this badge so it points at **your** GitHub repo and workflow.
+
+1. **Identify your GitHub repo path**
+
+   If your repository is at:
+
+   ```text
+   https://github.com/your-username/your-repo
+   ```
+
+   then your owner/repo path is:
+
+   ```text
+   your-username/your-repo
+   ```
+
+2. **Update the badge markdown in `README.md`**
+
+   Replace the template owner/repo (`sesopenko/python-template`) with your own:
+
+   ```markdown
+   [![CI](https://github.com/your-username/your-repo/actions/workflows/ci.yml/badge.svg)](https://github.com/your-username/your-repo/actions/workflows/ci.yml)
+   ```
+
+   Make sure:
+
+   - `your-username/your-repo` matches your actual GitHub namespace and repository name.
+   - The workflow file name (`ci.yml`) matches the file under `.github/workflows/` in your repo.  
+     If you rename the workflow file (for example to `build.yml`), update both URLs:
+
+     ```markdown
+     [![CI](https://github.com/your-username/your-repo/actions/workflows/build.yml/badge.svg)](https://github.com/your-username/your-repo/actions/workflows/build.yml)
+     ```
+
+3. **Verify the badge**
+
+   After pushing your changes:
+
+   - Open your repository on GitHub.
+   - Navigate to `README.md` and confirm the badge appears.
+   - Click the badge; it should take you to the corresponding GitHub Actions workflow page for your repo.
+
+If the badge shows as broken, double-check:
+
+- The owner/repo path is correct.
+- The workflow file exists at `.github/workflows/<name>.yml`.
+- The workflow has run at least once (badges sometimes appear only after the first run).
