@@ -3,4 +3,3 @@ read:
   - README.md
   - requirements.in
   - pyproject.toml
-show-diffs: true
