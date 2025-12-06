@@ -170,40 +170,6 @@ A typical Python project layout might look like:
 └── pyproject.toml             # Build backend and tool configuration
 ```
 
-## Using tasks.py (Invoke)
-
-For convenience, this project includes a Python task runner via Invoke. With the dependencies installed, you can use:
-
-```bash
-invoke help        # List available tasks
-invoke install     # Sync the virtual environment with requirements.txt
-invoke dev         # Install the project in editable mode
-invoke sync        # Sync the virtual environment with requirements.txt (pip-sync)
-invoke compile     # Compile requirements.txt from requirements.in (pip-compile)
-invoke upgrade     # Upgrade all dependencies (pip-compile --upgrade + pip-sync)
-invoke format      # Format code with black and isort
-invoke lint        # Lint with ruff
-invoke test        # Run tests with pytest
-invoke type-check  # Run mypy
-invoke clean       # Remove temporary files and caches
-```
-
-A typical dev setup flow using `invoke` is:
-
-```bash
-# First-time setup
-python -m venv .venv
-source .venv/bin/activate
-pip install pip-tools invoke
-invoke compile
-invoke install
-invoke dev  # pip install -e .
-
-# Later, when upgrading dependencies
-invoke upgrade
-invoke dev  # re-install editable project after pip-sync
-```
-
 ## Additional Tips
 
 - You can replace `pip-tools` with [`uv`](https://github.com/astral-sh/uv) for faster dependency resolution and installation. `uv` provides compatible `pip-compile` and `pip-sync` commands.
