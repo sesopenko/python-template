@@ -58,6 +58,197 @@ This repository provides a template for Python projects with best-practice tooli
 
 After completing the Quick Start, you can use `invoke` for all common development tasks.
 
+## Customizing This Template for Your Project
+
+When you fork this repository to start a new project, you should:
+
+1. **Choose your project/package name** (e.g. `awesome_app`, `my_library`).
+2. **Replace the placeholder `project_name`** in the relevant files.
+3. **Create your first package** under `src/<your_project_name>/`.
+
+### 1. Pick a project/package name
+
+Pick a valid Python package name:
+
+- All lowercase.
+- Use underscores (`_`) instead of spaces or hyphens.
+- Start with a letter.
+- Example good names: `my_app`, `awesome_tool`, `data_pipeline`.
+
+You will use this name in:
+
+- `pyproject.toml` → `[project] name`
+- Your package directory → `src/<your_project_name>/`
+
+### 2. Where to replace `project_name`
+
+This template uses `project_name` as a placeholder. When you fork it, search for `project_name` and replace it with your actual project name.
+
+At minimum, you should update:
+
+1. **`pyproject.toml`**
+
+   In the `[project]` section:
+
+   ```toml
+   [project]
+   name = "project_name"
+   ```
+
+   Change to:
+
+   ```toml
+   [project]
+   name = "your_actual_project_name"
+   ```
+
+   You can also update:
+
+   - `description`
+   - `authors`
+   - `readme`
+   - `license`
+   - Any other metadata that should reflect your project.
+
+2. **Source package layout**
+
+   The recommended layout is:
+
+   ```text
+   src/
+       your_actual_project_name/
+           __init__.py
+           ...
+   ```
+
+   The placeholder `project_name` in the README’s examples refers to this directory name. When you see `src/project_name/` in the docs, substitute your own name, e.g.:
+
+   ```text
+   src/my_cool_app/
+   ```
+
+If you add more tooling or configuration later (e.g. CI workflows, docs configs), you may also want to replace `project_name` in those files.
+
+### 3. Creating your first package
+
+This template assumes a `src/`-based layout, which keeps your import paths clean and avoids some common pitfalls.
+
+Follow these steps to create your first package:
+
+1. **Create the `src/` directory (if it doesn’t exist yet)**
+
+   From the repository root:
+
+   ```bash
+   mkdir -p src/your_actual_project_name
+   ```
+
+2. **Add `__init__.py`**
+
+   Create `src/your_actual_project_name/__init__.py` with minimal content:
+
+   ```python
+   """
+   Top-level package for your_actual_project_name.
+   """
+
+   __all__ = ["hello"]
+
+
+   def hello(name: str) -> str:
+       """Return a friendly greeting."""
+       return f"Hello, {name}!"
+   ```
+
+   Replace `your_actual_project_name` with your chosen name.
+
+3. **(Optional) Add a main module**
+
+   If you want a simple entry point, create `src/your_actual_project_name/main.py`:
+
+   ```python
+   """Command-line entry point for your_actual_project_name."""
+
+   from __future__ import annotations
+
+   import sys
+
+
+   def main(argv: list[str] | None = None) -> int:
+       """Run the main CLI for the project."""
+       if argv is None:
+           argv = sys.argv[1:]
+
+       name = argv[0] if argv else "world"
+       print(f"Hello, {name}!")
+       return 0
+
+
+   if __name__ == "__main__":
+       raise SystemExit(main())
+   ```
+
+4. **Install in editable mode**
+
+   After creating your package, reinstall in editable mode so imports work:
+
+   ```bash
+   invoke dev
+   ```
+
+   Now you can import your package in Python:
+
+   ```python
+   >>> import your_actual_project_name
+   >>> your_actual_project_name.hello("world")
+   'Hello, world!'
+   ```
+
+5. **(Optional) Add a console script entry point**
+
+   If you want a CLI command (e.g. `your-app`), you can add this to `pyproject.toml`:
+
+   ```toml
+   [project.scripts]
+   your-app = "your_actual_project_name.main:main"
+   ```
+
+   After running `invoke dev` again, you’ll be able to run:
+
+   ```bash
+   your-app
+   ```
+
+### 4. Creating your first tests
+
+To follow the template’s testing guidance:
+
+1. **Create the tests directory**
+
+   ```bash
+   mkdir -p tests
+   ```
+
+2. **Add a simple test file**
+
+   Create `tests/test_hello.py`:
+
+   ```python
+   from your_actual_project_name import hello
+
+
+   def test_hello_returns_expected_greeting() -> None:
+       assert hello("world") == "Hello, world!"
+   ```
+
+3. **Run tests**
+
+   ```bash
+   invoke test
+   ```
+
+   This should discover and run your test using pytest.
+
 ## Managing Dependencies
 
 ### Adding a new dependency
@@ -157,7 +348,7 @@ A typical Python project layout might look like:
 ```
 ├── .venv/                     # Virtual environment (excluded from git)
 ├── src/                       # Package source code
-│   └── your_package/
+│   └── your_actual_project_name/
 │       ├── __init__.py
 │       └── ...
 ├── tests/                     # Test suite
