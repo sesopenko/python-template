@@ -27,6 +27,8 @@ iniconfig==2.3.0
     # via pytest
 invoke==2.2.1
     # via -r requirements.in
+isort==7.0.0
+    # via -r requirements.in
 librt==0.7.3
     # via mypy
 mypy==1.19.0
