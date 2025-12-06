@@ -36,6 +36,7 @@ def help(c):
     print("  compile       Compile requirements.txt from requirements.in (pip-compile)")
     print("  upgrade       Upgrade all dependencies (pip-compile --upgrade + pip-sync)")
     print("  format        Format code with black and isort")
+    print("  format-check  Check formatting with black --check and ruff format --check")
     print("  lint          Lint with ruff")
     print("  test          Run pytest")
     print("  type-check    Run mypy")
@@ -79,6 +80,13 @@ def format_(c):
     """Format code with Black and isort."""
     _run(c, "black .")
     _run(c, "isort .")
+
+
+@task(name="format-check")
+def format_check(c):
+    """Check formatting with Black and Ruff without modifying files."""
+    _run(c, "black --check .")
+    _run(c, "ruff format --check .")
 
 
 @task
