@@ -22,8 +22,10 @@ from invoke import task
 
 
 def _run(c, cmd: str):
-    """Run a command with a PTY on POSIX for nicer output; disabled on Windows."""
-    return c.run(cmd, pty=os.name != "nt")
+    """Run a command with a PTY on POSIX for nicer output; fail fast on errors."""
+    # invoke's c.run will raise UnexpectedExit on non-zero status by default,
+    # which causes the task (and thus pre-commit/CI) to exit non-zero.
+    return c.run(cmd, pty=os.name != "nt", warn=False)
 
 
 @task

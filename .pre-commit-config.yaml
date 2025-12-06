@@ -8,39 +8,37 @@ repos:
       - id: end-of-file-fixer
       - id: trailing-whitespace
 
-  # Sort imports and format code
-  - repo: https://github.com/pycqa/isort
-    rev: 5.13.2
-    hooks:
-      - id: isort
-        args: ["--profile=black"]
-
-  - repo: https://github.com/psf/black
-    rev: 24.10.0
-    hooks:
-      - id: black
-
-  # Linting with Ruff
-  - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.7.3
-    hooks:
-      - id: ruff
-        args: ["check", "--fix"]
-
-  # Static type checking with mypy
-  - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.13.0
-    hooks:
-      - id: mypy
-        additional_dependencies: []
-        args: ["--config-file=pyproject.toml"]
-
-  # Run tests on commit (can be moved to pre-push if too slow)
+  # Use invoke tasks for code quality checks to match CI
   - repo: local
     hooks:
-      - id: pytest
-        name: pytest
-        entry: pytest
+      - id: invoke-format-check
+        name: invoke format-check
+        entry: invoke
         language: system
+        args: ["format-check"]
+        types: [python]
+        pass_filenames: false
+
+      - id: invoke-lint
+        name: invoke lint
+        entry: invoke
+        language: system
+        args: ["lint"]
+        types: [python]
+        pass_filenames: false
+
+      - id: invoke-type-check
+        name: invoke type-check
+        entry: invoke
+        language: system
+        args: ["type-check"]
+        types: [python]
+        pass_filenames: false
+
+      - id: invoke-test
+        name: invoke test
+        entry: invoke
+        language: system
+        args: ["test"]
         types: [python]
         pass_filenames: false

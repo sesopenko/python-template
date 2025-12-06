@@ -64,6 +64,38 @@ A typical Python project layout for this template looks like:
 
 See [docs/project-structure.md](docs/project-structure.md) for more details.
 
+## Continuous Integration (GitHub Actions)
+
+This project includes a GitHub Actions workflow at `.github/workflows/ci.yml`.
+
+The CI workflow runs on:
+
+- All pull requests.
+- Pushes to the `main` branch.
+
+For each run, it will:
+
+1. Set up Python 3.13.
+2. Install dependencies via `invoke install`.
+3. Install the project in editable mode via `invoke dev`.
+4. Check formatting via `invoke format-check`.
+5. Lint the code via `invoke lint`.
+6. Run tests via `invoke test`.
+7. Run type checks via `invoke type-check`.
+
+If any of these steps fail, the workflow fails and the pull request will show a failing status check.  
+To avoid CI failures, run the same commands locally before pushing:
+
+```bash
+invoke format
+invoke format-check
+invoke lint
+invoke type-check
+invoke test
+```
+
+If you have pre-commit hooks enabled (`invoke pre-commit`), many of these checks will also run automatically before each commit.
+
 ## Documentation
 
 Additional documentation is available in the `docs/` directory:
