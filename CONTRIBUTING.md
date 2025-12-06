@@ -58,6 +58,15 @@ If the project includes automatic tooling (linters, formatters, type checkers):
 2. Do not disable rules unless there is a strong justification.
 3. Ensure CI passes before opening a pull request.
 
+If the project uses [Invoke](https://www.pyinvoke.org/) and a `tasks.py` file:
+
+- Treat `invoke` tasks as the **single source of truth** for project-specific commands.
+- After the initial environment setup (creating/activating `.venv` and installing `pip-tools` and `invoke`),
+  prefer adding or updating `invoke` tasks instead of introducing new ad-hoc shell commands in docs or scripts.
+- When updating workflows, update the relevant `invoke` task and then reference that task from documentation.
+
+This convention keeps automation centralized and easier to maintain, and it helps AI agents and humans alike discover the correct commands.
+
 ---
 
 ## 📚 Documentation
@@ -89,6 +98,9 @@ If aider is being used for development:
 - Provide aider with **accurate context** and keep conversations focused.
 - When asking aider to edit files, reference them explicitly and be specific.
 - Avoid embedding project-specific assumptions in this file; it must remain reusable.
+- When introducing or changing project workflows, prefer updating `invoke` tasks in `tasks.py`
+  and then referencing those tasks in documentation, so aider can follow and extend the
+  established automation pattern.
 
 ---
 

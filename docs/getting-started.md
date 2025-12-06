@@ -46,6 +46,11 @@ If you plan to use the pre-commit framework (recommended), also install `pre-com
 pip install pre-commit
 ```
 
+> After this initial setup (creating/activating `.venv` and installing `pip-tools` and `invoke`),
+> all project-specific commands should be exposed as `invoke` tasks rather than ad-hoc shell
+> commands. This keeps the workflow consistent and makes it easy to change commands in one
+> place (`tasks.py`) instead of updating multiple docs and scripts.
+
 ## 3. Compile and install dependencies
 
 Dependencies are declared in `requirements.in` and compiled into a fully pinned `requirements.txt`.

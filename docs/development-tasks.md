@@ -10,6 +10,14 @@ invoke help
 
 Below is an overview of the tasks defined in `tasks.py`.
 
+> Convention  
+> After the initial setup (creating/activating `.venv` and installing `pip-tools` and `invoke`),
+> all project-specific commands should be exposed as `invoke` tasks rather than ad-hoc shell
+> commands. This keeps the workflow consistent and makes it easy to change commands in one
+> place (`tasks.py`) instead of updating multiple docs and scripts. When you find yourself
+> documenting or repeatedly running a shell command, prefer adding or updating an `invoke`
+> task instead.
+
 ## Installation and environment management
 
 ### `invoke install`
@@ -172,4 +180,4 @@ A typical development loop might look like:
    invoke dev
    ```
 
-If you have `pre-commit` installed and have run `pre-commit install`, many of these checks (formatting, linting, type-checking, and tests) will run automatically before each commit, helping keep the codebase consistent and healthy.
+If you have `pre-commit` installed and have run `invoke pre-commit`, many of these checks (formatting, linting, type-checking, and tests) will run automatically before each commit, helping keep the codebase consistent and healthy.
