@@ -43,6 +43,9 @@ def help(c: Context) -> None:  # noqa: ARG001 - required by invoke
     print("  lint          Lint with ruff")
     print("  test          Run pytest")
     print("  type-check    Run mypy")
+    print(
+        "  validate      Run all validation checks (format-check, lint, type-check, test)"
+    )
     print("  clean         Remove build artifacts, caches, etc.")
     print("  pre-commit    Install pre-commit git hooks")
 
@@ -108,6 +111,16 @@ def test(c: Context) -> None:
 def type_check(c: Context) -> None:
     """Run static type checks with mypy."""
     _run(c, "mypy .")
+
+
+@task
+def validate(c: Context) -> None:
+    """Run all validation checks, similar to the CI pipeline, against the full codebase."""
+    # Order mirrors the CI workflow: formatting checks, linting, tests, then type checks.
+    _run(c, "invoke format-check")
+    _run(c, "invoke lint")
+    _run(c, "invoke test")
+    _run(c, "invoke type-check")
 
 
 @task

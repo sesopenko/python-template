@@ -120,6 +120,23 @@ This runs:
 
 - `mypy .`
 
+### `invoke validate`
+
+Run all validation checks (formatting check, linting, tests, and type-checking) against the full codebase, similar to the CI pipeline:
+
+```bash
+invoke validate
+```
+
+This runs, in order:
+
+- `invoke format-check`
+- `invoke lint`
+- `invoke test`
+- `invoke type-check`
+
+Use this before pushing or opening a pull request to mirror what CI will do.
+
 ## Testing
 
 ### `invoke test`
@@ -168,9 +185,10 @@ A typical development loop might look like:
 
    ```bash
    invoke format
-   invoke lint
-   invoke type-check
-   invoke test
+   invoke validate   # or run the individual tasks:
+                     # invoke lint
+                     # invoke type-check
+                     # invoke test
    ```
 
 4. Occasionally upgrade dependencies:
