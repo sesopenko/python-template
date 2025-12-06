@@ -156,7 +156,7 @@ A typical development loop might look like:
 
 2. Make code changes.
 
-3. Before committing:
+3. Before committing (or via pre-commit hooks):
 
    ```bash
    invoke format
@@ -171,3 +171,5 @@ A typical development loop might look like:
    invoke upgrade
    invoke dev
    ```
+
+If you have `pre-commit` installed and have run `pre-commit install`, many of these checks (formatting, linting, type-checking, and tests) will run automatically before each commit, helping keep the codebase consistent and healthy.

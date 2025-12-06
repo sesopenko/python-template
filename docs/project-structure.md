@@ -14,6 +14,7 @@ A typical layout looks like:
 ├── docs/                      # Additional documentation
 ├── .gitignore
 ├── .aider.conf.yml            # Aider configuration (if used)
+├── .pre-commit-config.yaml    # pre-commit hooks configuration
 ├── requirements.in            # Direct dependencies
 ├── requirements.txt           # Locked dependencies (generated)
 ├── tasks.py                   # Invoke tasks
@@ -77,6 +78,7 @@ Defines [Invoke](https://www.pyinvoke.org/) tasks for common operations:
 - Formatting, linting, and type-checking.
 - Running tests.
 - Cleaning build artifacts and caches.
+- Installing pre-commit hooks.
 
 See [development-tasks.md](development-tasks.md) for details.
 
@@ -92,6 +94,22 @@ Central configuration file for:
   - isort (`[tool.isort]`)
   - mypy (`[tool.mypy]`)
   - pytest (`[tool.pytest.ini_options]`)
+
+### `.pre-commit-config.yaml`
+
+Configuration for the [pre-commit](https://pre-commit.com/) framework. It defines hooks that run automatically before each commit, such as:
+
+- Basic repository hygiene checks (trailing whitespace, large files, merge conflicts).
+- Code formatting with Black and isort.
+- Linting with Ruff.
+- Static type checking with mypy.
+- Running the test suite with pytest.
+
+Developers can enable these hooks with:
+
+```bash
+invoke pre-commit
+```
 
 ### `.venv/`
 

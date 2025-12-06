@@ -40,6 +40,12 @@ Install `pip-tools` and `invoke`, which are used for dependency management and c
 pip install pip-tools invoke
 ```
 
+If you plan to use the pre-commit framework (recommended), also install `pre-commit`:
+
+```bash
+pip install pre-commit
+```
+
 ## 3. Compile and install dependencies
 
 Dependencies are declared in `requirements.in` and compiled into a fully pinned `requirements.txt`.
@@ -70,7 +76,21 @@ invoke dev
 
 If you later run `invoke sync` or `invoke upgrade` (both use `pip-sync`), you should re-run `invoke dev` afterward, because `pip-sync` removes anything not listed in `requirements.txt`.
 
-## 5. Verify the setup
+## 5. Enable pre-commit hooks (optional but recommended)
+
+To automatically run formatting, linting, type checks, and tests before each commit, enable the pre-commit hooks defined in `.pre-commit-config.yaml`:
+
+```bash
+invoke pre-commit
+```
+
+You can also run all hooks manually on the entire codebase:
+
+```bash
+pre-commit run --all-files
+```
+
+## 6. Verify the setup
 
 Run the test suite to confirm everything is working:
 
@@ -80,7 +100,7 @@ invoke test
 
 You should see pytest discover and run the tests under `tests/`.
 
-## 6. Next steps
+## 7. Next steps
 
 Once your environment is set up:
 

@@ -40,6 +40,7 @@ def help(c):
     print("  test          Run pytest")
     print("  type-check    Run mypy")
     print("  clean         Remove build artifacts, caches, etc.")
+    print("  pre-commit    Install pre-commit git hooks")
 
 
 @task
@@ -134,3 +135,9 @@ def clean(c):
     # Remove all __pycache__ directories recursively
     for p in root.rglob("__pycache__"):
         _remove_path(p)
+
+
+@task(name="pre-commit")
+def pre_commit(c):
+    """Install pre-commit git hooks."""
+    _run(c, "pre-commit install")

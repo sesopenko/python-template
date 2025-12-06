@@ -52,6 +52,7 @@ A typical Python project layout for this template looks like:
 ├── .venv/                     # Virtual environment (excluded from git)
 ├── .gitignore
 ├── .aider.conf.yml            # Aider configuration (if used)
+├── .pre-commit-config.yaml    # pre-commit hooks configuration
 ├── requirements.in            # Direct dependencies
 ├── requirements.txt           # Locked dependencies (generated)
 ├── tasks.py                   # Invoke tasks
