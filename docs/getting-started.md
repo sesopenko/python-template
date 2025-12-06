@@ -2,6 +2,9 @@
 
 This guide walks you through setting up a development environment for this template and verifying that everything works.
 
+> This project requires **Python 3.13 or later**. Earlier Python 3 versions
+> (3.12 and below) are no longer in active support and are not supported.
+
 ## 1. Create a virtual environment
 
 It is recommended to create a virtual environment inside the project directory:

@@ -112,6 +112,7 @@ In the `[project]` section:
 ```toml
 [project]
 name = "project_name"
+requires-python = ">=3.13"
 ```
 
 Change to:
@@ -119,6 +120,7 @@ Change to:
 ```toml
 [project]
 name = "your_actual_project_name"
+requires-python = ">=3.13"
 ```
 
 You can also update:

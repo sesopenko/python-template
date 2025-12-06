@@ -3,6 +3,9 @@
 A minimal, best-practice template for Python projects with tooling for
 formatting, linting, testing, type-checking, and dependency management.
 
+> This template targets **Python 3.13 or later**. Earlier Python 3 versions
+> (3.12 and below) are no longer in active support and are not supported here.
+
 ## Quick Start
 
 1. **Create a virtual environment** (recommended inside the project):

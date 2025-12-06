@@ -2,6 +2,9 @@
 
 This template follows a `src/`-based layout and includes common tooling for modern Python projects.
 
+> The template targets **Python 3.13 or later**. Earlier Python 3 versions
+> (3.12 and below) are not supported.
+
 A typical layout looks like:
 
 ```text
