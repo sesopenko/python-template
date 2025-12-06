@@ -10,7 +10,7 @@ This guide walks you through setting up a development environment for this templ
 It is recommended to create a virtual environment inside the project directory:
 
 ```bash
-python -m venv .venv
+python3 -m venv .venv
 ```
 
 ### Activate the virtual environment

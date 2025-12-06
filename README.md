@@ -11,7 +11,7 @@ formatting, linting, testing, type-checking, and dependency management.
 1. **Create a virtual environment** (recommended inside the project):
 
    ```bash
-   python -m venv .venv
+   python3 -m venv .venv
    source .venv/bin/activate  # Linux/macOS
    ```
 
