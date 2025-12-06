@@ -25,16 +25,16 @@ This repository provides a template for Python projects with best-practice tooli
      .venv\Scripts\activate.bat
      ```
 
-**Install `pip-tools`** (for dependency management):
+**Install `pip-tools` and `invoke`** (for dependency management and tasks):
 
    ```bash
-   pip install pip-tools
+   pip install pip-tools invoke
    ```
 
 **Compile `requirements.txt` from `requirements.in`**:
 
    ```bash
-   pip-compile requirements.in
+   invoke compile
    ```
 
    This generates (or updates) a locked `requirements.txt` with all transitive dependencies pinned.
@@ -42,28 +42,44 @@ This repository provides a template for Python projects with best-practice tooli
 **Install the exact dependencies**:
 
    ```bash
-   pip-sync requirements.txt
+   invoke install
    ```
 
    This ensures your virtual environment matches the lock file exactly, removing any extra packages.
+
+**Install your project in editable mode**:
+
+   ```bash
+   invoke dev
+   ```
+
+   This installs your project in editable mode so local changes are immediately reflected without reinstalling.  
+   Note: if you later run `invoke sync` or `invoke upgrade` (both use `pip-sync` under the hood), you should re-run `invoke dev` afterward, because `pip-sync` removes anything not listed in `requirements.txt`.
+
+After completing the Quick Start, you can use `invoke` for all common development tasks.
 
 ## Managing Dependencies
 
 ### Adding a new dependency
 
 1. Add the package name (and optionally a version specifier) to `requirements.in`. Example:
-   ```
+   ```text
    requests>=2.31
    ```
 
 2. Re‑compile the lock file:
    ```bash
-   pip-compile requirements.in
+   invoke compile
    ```
 
 3. Sync your environment:
    ```bash
-   pip-sync requirements.txt
+   invoke sync
+   ```
+
+4. Reinstall your project in editable mode (if needed):
+   ```bash
+   invoke dev
    ```
 
 ### Upgrading all dependencies
@@ -71,23 +87,28 @@ This repository provides a template for Python projects with best-practice tooli
 To upgrade every package to the latest versions allowed by your specifiers:
 
 ```bash
-pip-compile --upgrade requirements.in
-pip-sync requirements.txt
+invoke upgrade
+invoke dev  # re-install editable project after pip-sync
 ```
 
 ### Development dependencies
 
-If you have separate development dependencies (e.g., `pytest`, `black`, `mypy`), consider creating a `requirements-dev.in` file. Compile it with:
+All core development tools (e.g., `pytest`, `black`, `ruff`, `mypy`, `invoke`, `pip-tools`) are declared in `requirements.in` and managed via `pip-compile` / `pip-sync`.
+
+If you prefer to manage additional development-only dependencies via `pip-tools`, you can still create a `requirements-dev.in` file and compile it with:
 
 ```bash
-pip-compile requirements-dev.in
+invoke compile  # after adjusting tasks.py to handle requirements-dev.in
 ```
 
 Then install both production and development dependencies with:
 
 ```bash
-pip-sync requirements.txt requirements-dev.txt
+invoke install  # after adjusting tasks.py to sync multiple requirement files
+invoke dev
 ```
+
+(For now, this template assumes a single `requirements.in` / `requirements.txt` pair.)
 
 ## Using the Virtual Environment
 
@@ -97,31 +118,36 @@ pip-sync requirements.txt requirements-dev.txt
 
 ## Development Tasks
 
-If your project includes a `pyproject.toml` with optional tool configurations, you can run common tasks such as:
+With the dependencies installed via `requirements.in` / `requirements.txt` and your project installed in editable mode, you can run common tasks via `invoke`:
 
-- **Run tests** (assuming `pytest` is installed):
+- **List available tasks**:
   ```bash
-  pytest
+  invoke help
   ```
 
-- **Format code with Black**:
+- **Run tests**:
   ```bash
-  black .
+  invoke test
   ```
 
-- **Sort imports with isort**:
+- **Format code with Black and isort**:
   ```bash
-  isort .
+  invoke format
   ```
 
 - **Lint with Ruff**:
   ```bash
-  ruff check .
+  invoke lint
   ```
 
 - **Type checking with mypy**:
   ```bash
-  mypy .
+  invoke type-check
+  ```
+
+- **Clean build artifacts and caches**:
+  ```bash
+  invoke clean
   ```
 
 ## Project Structure
@@ -139,18 +165,22 @@ A typical Python project layout might look like:
 ├── .aider.conf.yml            # Aider configuration (if used)
 ├── requirements.in            *Direct dependencies*
 ├── requirements.txt           *Locked dependencies (generated)*
+├── tasks.py                   # Invoke tasks
 ├── README.md                  *This file*
-└── pyproject.toml (optional)  # Build backend and tool configuration
+└── pyproject.toml             # Build backend and tool configuration
 ```
 
 ## Using tasks.py (Invoke)
 
-For convenience, this project includes a Python task runner via Invoke. You can use:
+For convenience, this project includes a Python task runner via Invoke. With the dependencies installed, you can use:
 
 ```bash
 invoke help        # List available tasks
 invoke install     # Sync the virtual environment with requirements.txt
-invoke dev         # Install development dependencies (editable + extras)
+invoke dev         # Install the project in editable mode
+invoke sync        # Sync the virtual environment with requirements.txt (pip-sync)
+invoke compile     # Compile requirements.txt from requirements.in (pip-compile)
+invoke upgrade     # Upgrade all dependencies (pip-compile --upgrade + pip-sync)
 invoke format      # Format code with black and isort
 invoke lint        # Lint with ruff
 invoke test        # Run tests with pytest
@@ -158,16 +188,20 @@ invoke type-check  # Run mypy
 invoke clean       # Remove temporary files and caches
 ```
 
-If you don't have Invoke installed, install it with:
+A typical dev setup flow using `invoke` is:
 
 ```bash
-pip install invoke
-```
+# First-time setup
+python -m venv .venv
+source .venv/bin/activate
+pip install pip-tools invoke
+invoke compile
+invoke install
+invoke dev  # pip install -e .
 
-Or install all development dependencies (including Invoke) with:
-
-```bash
-pip install -e .[dev]
+# Later, when upgrading dependencies
+invoke upgrade
+invoke dev  # re-install editable project after pip-sync
 ```
 
 ## Additional Tips

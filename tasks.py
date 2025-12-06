@@ -31,8 +31,10 @@ def help(c):
     """Show available commands."""
     print("Available commands:")
     print("  install       Install production dependencies (from requirements.txt)")
-    print("  dev           Install dev dependencies (from pyproject.toml optional)")
+    print("  dev           Install project in editable mode")
     print("  sync          Sync virtual environment with requirements.txt (pip-sync)")
+    print("  compile       Compile requirements.txt from requirements.in (pip-compile)")
+    print("  upgrade       Upgrade all dependencies (pip-compile --upgrade + pip-sync)")
     print("  format        Format code with black and isort")
     print("  lint          Lint with ruff")
     print("  test          Run pytest")
@@ -42,19 +44,32 @@ def help(c):
 
 @task
 def install(c):
-    """Install production dependencies from requirements.txt using pip-sync."""
+    """Install production and development dependencies from requirements.txt using pip-sync."""
     _run(c, "pip-sync requirements.txt")
 
 
 @task
 def dev(c):
-    """Install project in editable mode with development extras."""
-    _run(c, "pip install -e .[dev]")
+    """Install project in editable mode."""
+    _run(c, "pip install -e .")
 
 
 @task
 def sync(c):
     """Sync virtual environment with requirements.txt using pip-sync."""
+    _run(c, "pip-sync requirements.txt")
+
+
+@task
+def compile(c):
+    """Compile requirements.txt from requirements.in using pip-compile."""
+    _run(c, "pip-compile requirements.in")
+
+
+@task
+def upgrade(c):
+    """Upgrade all dependencies to their latest allowed versions and sync."""
+    _run(c, "pip-compile --upgrade requirements.in")
     _run(c, "pip-sync requirements.txt")
 
 

@@ -20,19 +20,6 @@ license = {text = "MIT"}
 requires-python = ">=3.9"
 dependencies = []  # managed via requirements.in / requirements.txt
 
-[project.optional-dependencies]
-# Defines extra "feature" groups of dependencies (like dev tools) that are
-# not required to run the project but can be installed with extras, e.g.
-# `pip install .[dev]` for development tools.
-dev = [
-    "invoke>=2.0",
-    "black>=25.0",
-    "ruff>=0.14",
-    "pytest>=9.0",
-    "mypy>=1.19",
-    "pip-tools>=7.0",
-]
-
 [tool.black]
 # Black is an automatic code formatter: it rewrites your Python files into a
 # consistent style for you. This section tells Black how strict to be so you

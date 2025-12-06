@@ -1,0 +1,6 @@
+invoke>=2.0
+black>=25.0
+ruff>=0.14
+pytest>=9.0
+mypy>=1.19
+pip-tools>=7.0
