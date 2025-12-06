@@ -3,6 +3,16 @@
 A minimal, best-practice template for Python projects with tooling for
 formatting, linting, testing, type-checking, and dependency management.
 
+**Why use this template?**
+
+- Targets **modern Python (3.13+)** only, avoiding legacy baggage.
+- Uses a **single, simple task runner** (`invoke`) for formatting, linting, testing, type-checking, and more.
+- Manages dependencies with **`pip-tools`** for clear separation of direct vs. locked requirements.
+- Configures **Black, Ruff, mypy, pytest, and pre-commit** out of the box with sensible defaults.
+- Provides a **clean, minimal project structure** (`src/`, `tests/`, `docs/`) that’s easy to customize.
+- Keeps **local and CI workflows aligned**: the same `invoke` commands run both locally and in GitHub Actions.
+- Includes concise **documentation for setup, tasks, dependencies, and customization**.
+
 > This template targets **Python 3.13 or later**. Earlier Python 3 versions
 > (3.12 and below) are no longer in active support and are not supported here.
 
