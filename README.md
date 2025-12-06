@@ -27,7 +27,6 @@ formatting, linting, testing, type-checking, and dependency management.
 3. **Compile and install dependencies, then install the project in editable mode**:
 
    ```bash
-   invoke compile
    invoke install
    invoke dev
    ```
