@@ -50,6 +50,8 @@ extend-exclude = '''
 # it can give you useful feedback without being overwhelming.
 target-version = "py313"
 line-length = 88
+
+[tool.ruff.lint]
 select = [
     "E",   # pycodestyle errors
     "W",   # pycodestyle warnings
@@ -62,7 +64,7 @@ ignore = [
     "E501",  # line too long, handled by black
 ]
 
-[tool.ruff.per-file-ignores]
+[tool.ruff.lint.per-file-ignores]
 # This fine‑tunes Ruff by telling it to relax certain rules in specific
 # files, so you can keep strict checks overall without fighting the linter
 # in places where exceptions are practical.
