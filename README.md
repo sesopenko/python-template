@@ -109,4 +109,4 @@ Additional documentation is available in the `docs/` directory:
 
 ## License
 
-MIT – see `LICENSE` for details.
+MIT – see [LICENSE.TXT](LICENSE.txt) for details.
