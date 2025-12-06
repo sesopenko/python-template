@@ -1,8 +1,14 @@
 [build-system]
+# Tells packaging tools how to build this project (which backend to use and
+# which packages are needed just to build it). This is required for modern
+# Python packaging so tools like pip know how to install your project.
 requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
+# Describes the project itself: its name, version, metadata, and core
+# requirements. Tools like pip, IDEs, and package indexes read this to know
+# what your project is and how to install it.
 name = "project_name"
 version = "0.1.0"
 description = "A Python project"
@@ -15,6 +21,9 @@ requires-python = ">=3.9"
 dependencies = []  # managed via requirements.in / requirements.txt
 
 [project.optional-dependencies]
+# Defines extra "feature" groups of dependencies (like dev tools) that are
+# not required to run the project but can be installed with extras, e.g.
+# `pip install .[dev]` for development tools.
 dev = [
     "invoke>=2.0",
     "black>=25.0",
@@ -24,6 +33,9 @@ dev = [
 ]
 
 [tool.black]
+# Black is an automatic code formatter: it rewrites your Python files into a
+# consistent style for you. This section tells Black how strict to be so you
+# don't have to think about formatting details by hand.
 line-length = 88
 target-version = ["py39"]
 include = '\.pyi?$'
@@ -45,6 +57,9 @@ extend-exclude = '''
 '''
 
 [tool.ruff]
+# Ruff is a fast linter: it analyzes your code for common mistakes, style
+# issues, and potential bugs. This section controls which checks it runs so
+# it can give you useful feedback without being overwhelming.
 target-version = "py39"
 line-length = 88
 select = [
@@ -62,13 +77,21 @@ ignore = [
 ]
 
 [tool.ruff.per-file-ignores]
+# This fine‑tunes Ruff by telling it to relax certain rules in specific
+# files, so you can keep strict checks overall without fighting the linter
+# in places where exceptions are practical.
 "__init__.py" = ["F401"]  # allow unused imports in __init__
 
 [tool.isort]
+# isort automatically sorts and groups your import statements. This keeps
+# imports tidy and consistent so you don't have to manually reorder them.
 profile = "black"
 line_length = 88
 
 [tool.mypy]
+# mypy is a static type checker: it reads your type hints and tries to catch
+# type-related bugs before you run the code, giving you earlier feedback and
+# better editor/IDE assistance.
 python_version = "3.9"
 warn_return_any = true
 warn_unused_configs = true
@@ -83,6 +106,9 @@ warn_no_return = true
 warn_unreachable = true
 
 [tool.pytest.ini_options]
+# pytest is the test runner: it discovers and runs your tests. These options
+# make sure tests are found and executed the same way on every machine and
+# in continuous integration.
 testpaths = ["tests"]
 python_files = ["test_*.py", "*_test.py"]
 python_classes = ["Test*"]
