@@ -17,10 +17,10 @@ dependencies = []  # managed via requirements.in / requirements.txt
 [project.optional-dependencies]
 dev = [
     "invoke>=2.0",
-    "black>=24.0",
-    "ruff>=0.4",
-    "pytest>=7.0",
-    "mypy>=1.8",
+    "black>=25.0",
+    "ruff>=0.14",
+    "pytest>=9.0",
+    "mypy>=1.19",
 ]
 
 [tool.black]
