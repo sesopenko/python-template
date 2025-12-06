@@ -12,6 +12,7 @@ Equivalent to the previous Makefile targets:
 - type-check
 - clean
 """
+
 from __future__ import annotations
 
 import os
