@@ -4,13 +4,13 @@ This repository provides a template for Python projects with best-practice tooli
 
 ## Quick Start
 
-1. **Create a virtual environment** (recommended inside the project):
+**Create a virtual environment** (recommended inside the project):
 
    ```bash
    python -m venv .venv
    ```
 
-2. **Activate the virtual environment**:
+**Activate the virtual environment**:
 
    - On Linux/macOS:
      ```bash
@@ -25,13 +25,13 @@ This repository provides a template for Python projects with best-practice tooli
      .venv\Scripts\activate.bat
      ```
 
-3. **Install `pip-tools`** (for dependency management):
+**Install `pip-tools`** (for dependency management):
 
    ```bash
    pip install pip-tools
    ```
 
-4. **Compile `requirements.txt` from `requirements.in`**:
+**Compile `requirements.txt` from `requirements.in`**:
 
    ```bash
    pip-compile requirements.in
@@ -39,7 +39,7 @@ This repository provides a template for Python projects with best-practice tooli
 
    This generates (or updates) a locked `requirements.txt` with all transitive dependencies pinned.
 
-5. **Install the exact dependencies**:
+**Install the exact dependencies**:
 
    ```bash
    pip-sync requirements.txt
