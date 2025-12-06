@@ -18,11 +18,12 @@ from __future__ import annotations
 import os
 import shutil
 from pathlib import Path
+from typing import Callable
 
-from invoke import task
+from invoke import Context, Result, task
 
 
-def _run(c, cmd: str):
+def _run(c: Context, cmd: str) -> Result | None:
     """Run a command with a PTY on POSIX for nicer output; fail fast on errors."""
     # invoke's c.run will raise UnexpectedExit on non-zero status by default,
     # which causes the task (and thus pre-commit/CI) to exit non-zero.
@@ -30,7 +31,7 @@ def _run(c, cmd: str):
 
 
 @task
-def help(c):
+def help(c: Context) -> None:  # noqa: ARG001 - required by invoke
     """Show available commands."""
     print("Available commands:")
     print("  install       Install production dependencies (from requirements.txt)")
@@ -48,70 +49,70 @@ def help(c):
 
 
 @task
-def install(c):
+def install(c: Context) -> None:
     """Install production and development dependencies from requirements.txt using pip-sync."""
     _run(c, "pip-sync requirements.txt")
 
 
 @task
-def dev(c):
+def dev(c: Context) -> None:
     """Install project in editable mode."""
     _run(c, "pip install -e .")
 
 
 @task
-def sync(c):
+def sync(c: Context) -> None:
     """Sync virtual environment with requirements.txt using pip-sync."""
     _run(c, "pip-sync requirements.txt")
 
 
 @task
-def compile(c):
+def compile(c: Context) -> None:
     """Compile requirements.txt from requirements.in using pip-compile."""
     _run(c, "pip-compile requirements.in")
 
 
 @task
-def upgrade(c):
+def upgrade(c: Context) -> None:
     """Upgrade all dependencies to their latest allowed versions and sync."""
     _run(c, "pip-compile --upgrade requirements.in")
     _run(c, "pip-sync requirements.txt")
 
 
 @task(name="format")
-def format_(c):
+def format_(c: Context) -> None:
     """Format code with Black and isort."""
     _run(c, "black .")
     _run(c, "isort .")
 
 
 @task(name="format-check")
-def format_check(c):
+def format_check(c: Context) -> None:
     """Check formatting with Black and Ruff without modifying files."""
     _run(c, "black --check .")
     _run(c, "ruff format --check .")
 
 
 @task
-def lint(c):
+def lint(c: Context) -> None:
     """Lint the codebase with Ruff."""
     _run(c, "ruff check .")
 
 
 @task
-def test(c):
+def test(c: Context) -> None:
     """Run tests with pytest."""
     _run(c, "pytest")
 
 
 @task(name="type-check")
-def type_check(c):
+def type_check(c: Context) -> None:
     """Run static type checks with mypy."""
     _run(c, "mypy .")
 
 
 @task
-def clean(c):
+def clean(c: Context) -> None:  # noqa: ARG001 - required by invoke
     """Remove build artifacts, caches, and coverage files in a cross-platform way."""
     root = Path(".")
 
@@ -126,7 +127,7 @@ def clean(c):
         "htmlcov",
     ]
 
-    def _remove_path(p: Path):
+    def _remove_path(p: Path) -> None:
         try:
             if p.is_symlink() or p.is_file():
                 p.unlink()
@@ -149,6 +150,6 @@ def clean(c):
 
 
 @task(name="pre-commit")
-def pre_commit(c):
+def pre_commit(c: Context) -> None:
     """Install pre-commit git hooks."""
     _run(c, "pre-commit install")
