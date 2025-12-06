@@ -110,3 +110,7 @@ Additional documentation is available in the `docs/` directory:
 ## License
 
 MIT – see [LICENSE.TXT](LICENSE.txt) for details.
+
+## Template Attribution
+
+This project was created from the Python template at <https://github.com/sesopenko/python-template>, created and maintained by [Sean Esopenko](https://github.com/sesopenko)
