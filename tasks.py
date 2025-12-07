@@ -30,27 +30,6 @@ def _run(c: Context, cmd: str) -> Result | None:
 
 
 @task
-def help(c: Context) -> None:  # noqa: ARG001 - required by invoke
-    """Show available commands."""
-    print("Available commands:")
-    print("  install       Install production dependencies (from requirements.txt)")
-    print("  dev           Install project in editable mode")
-    print("  sync          Sync virtual environment with requirements.txt (pip-sync)")
-    print("  compile       Compile requirements.txt from requirements.in (pip-compile)")
-    print("  upgrade       Upgrade all dependencies (pip-compile --upgrade + pip-sync)")
-    print("  format        Format code with black and isort")
-    print("  format-check  Check formatting with black --check and ruff format --check")
-    print("  lint          Lint with ruff")
-    print("  test          Run pytest")
-    print("  type-check    Run mypy")
-    print(
-        "  validate      Run all validation checks (format-check, lint, type-check, test)"
-    )
-    print("  clean         Remove build artifacts, caches, etc.")
-    print("  pre-commit    Install pre-commit git hooks")
-
-
-@task
 def install(c: Context) -> None:
     """Install production and development dependencies from requirements.txt using pip-sync."""
     _run(c, "pip-sync requirements.txt")
